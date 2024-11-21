@@ -1,6 +1,6 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial THSerial(8, 7);  // RX——8, TX——7
+SoftwareSerial THSerial(8, 7);  // Arduino Uno 物理串口被占用，用于程序下载和调试，新建虚拟串口链接设备。RX——8, TX——7
 
 unsigned char item[8] = {0x01, 0x03, 0x00, 0x00, 0x00, 0x02, 0xC4, 0x0B};  //16进制测温命令
 unsigned char buffer[9];                                                   //数组，存储接收到的16进制字符
@@ -30,11 +30,11 @@ void loop() {
   int humidity = (buffer[3] << 8) | buffer[4];
   int temperature = (buffer[5] << 8) | buffer[6];
  
-  float real_temperature = temperature / 10.0; // 实际温度
-  float real_humidity = humidity / 10.0;       // 实际湿度
+  float real_temperature = temperature / 10.0;            // 实际温度
+  float real_humidity = humidity / 10.0;                  // 实际湿度
  
   // 打印读取的温湿度数据
-  Serial.print(F("温度 Temperature: "));            //温度
+  Serial.print(F("温度 Temperature: "));                  //温度
   Serial.print(real_temperature);
   Serial.print(F("\u2103 \n相对湿度 Humidity: "));        //湿度
   Serial.print(real_humidity);
